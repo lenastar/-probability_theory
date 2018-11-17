@@ -56,10 +56,10 @@ def get_multiplication_const(d, const):
 
 def get_min_distribution(d1, d2):
     distribution = {}
-    for i in distribution1:
+    for i in d1:
         for j in d2:
             distribution[min(i, j)] = 0
-    for i in distribution1:
+    for i in d1:
         for j in d2:
             distribution[min(i, j)] += d1[i] * d2[j]
     return distribution
@@ -102,10 +102,39 @@ if __name__ == '__main__':
     probabilities2 = [1 / 12, 1 / 12, 1 / 3, 1 / 3, 1 / 12, 1 / 12]
     distribution2 = dict((key, value) for (key, value) in zip(values2, probabilities2))
     _min = get_min_distribution(get_osn_power_d(distribution1, 2), distribution2)  # Кб-301
-    print(sum(_min[i] for i in _min))  # check
+    #    print(sum(_min[i] for i in _min))  # check
     _max = get_max_distribution(get_sum(distribution1, distribution2),
                                 get_multiplication_const(distribution2, 2))  # КН-302
-    print(sum(_max[i] for i in _max))  # check
-    print(get_deviation(_min))  # Отклонения _min
-    print(get_cov(_min, _max))  # Ковариация
-    print(get_cor(_min, _max))  # Корреляция
+    #   print(sum(_max[i] for i in _max))  # check
+    print('Home work 6:')
+    print('For min(2^ksi, mu)')
+    print('__Distribution__')
+    print('   |'.join(map(lambda x: str(x), _min.keys())))
+    print('|'.join(map(lambda x: str(round(x, 2)), _min.values())))
+    print('Sum of probabilities in distribution: ', sum(_min[i] for i in _min))
+    print('__Expectation__')
+    print(get_expectation(_min))
+    print('__Dispersion__')
+    print(get_dispersion(_min))
+    print('________________________')
+    print('Home work 8:')
+    print('For min(2^ksi, mu)')
+    print('__Deviation__')
+    print(get_deviation(_min))
+    print('For min(2^ksi, mu) and max(ksi + mu, 2 * mu)')
+    print('__Covariance__')
+    print(get_cov(_min, _max))
+    print('__Correlation__')
+    print(get_cor(_min, _max))
+    print('________________________')
+    print('for ksi and ksi^2')
+
+    values3 = [0, 1, -1]
+    probabilities3 = [1 / 3, 1 / 2, 1 / 6]
+    distribution3 = dict((key, value) for (key, value) in zip(values3, probabilities3))
+    print('__Correlation__')
+    print('a: ', get_cor(distribution3, get_power_d(distribution3, 2)))
+    values4 = [-2, -1, 1, 2]
+    probabilities4 = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+    distribution4 = dict((key, value) for (key, value) in zip(values4, probabilities4))
+    print('b: ', get_cor(distribution4, get_power_d(distribution4, 2)))
